@@ -11,18 +11,35 @@ import { toast } from "react-toastify";
 
 const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
   const [eventCount, setEventCount] = useState([0]);
+  const [selectedEvents, setSelectedEvents] = useState<(string | null)[]>([
+    null,
+  ]);
 
   const addEvent = () => {
     setEventCount((s) => {
+      setSelectedEvents((prev) => [...prev, null]);
       return [...s, Math.random()];
     });
   };
 
   const removeEvent = (i: number) => {
     setEventCount((s) => {
+      setSelectedEvents((prev) => {
+        const updated = [...prev];
+        updated.splice(i, 1);
+        return updated;
+      });
       let n = [...s];
       n.splice(i, 1);
       return n;
+    });
+  };
+
+  const handleEventChange = (index: number, value: string) => {
+    setSelectedEvents((prev) => {
+      const updated = [...prev];
+      updated[index] = value;
+      return updated;
     });
   };
   const [events, evLoading] = useFetch(
@@ -35,46 +52,66 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
     },
     [],
   );
-  const getEventValue =
+  const allOptions =
     useMemo(() => {
-      if (events) {
-        const ev = events.filter((d: any) => {
-          if (
-            (d.value === "soloPass" || d.categoryId != 1) &&
-            d.submission === "{}" &&
-            !d.team
-          )
-            return true;
-        });
+      if (!events) return [];
 
-        return ev.map((d: any) => d["value"]);
-      }
+      const ev = events.filter((d: any) => {
+        if (
+          (d.value === "soloPass" || d.categoryId != 1) &&
+          d.submission === "{}" &&
+          !d.team
+        )
+          return true;
+      });
+
+      return ev.map((d: any) => ({
+        value: d["value"],
+        label:
+          d["name"] +
+          (d["submission"] !== "{}" ? " - 🔗 Submission" : "") +
+          (d["team"] ? " - 👥 Team" : "") +
+          (d["paid"] ? " - 💵 " + d.fee : ""),
+      }));
     }, [events]) || [];
 
-  const getEventNames =
-    useMemo(() => {
-      if (events) {
-        const ev = events.filter((d: any) => {
-          if (
-            (d.value === "soloPass" || d.categoryId != 1) &&
-            d.submission === "{}" &&
-            !d.team
-          )
-            return true;
-        });
+  const allValues = useMemo(
+    () => allOptions.map((opt) => opt.value),
+    [allOptions],
+  );
 
-        return ev.map(
-          (d: any) =>
-            d["name"] +
-            (d["submission"] !== "{}" ? " - 🔗 Submission" : "") +
-            (d["team"] ? " - 👥 Team" : "") +
-            (d["paid"] ? " - 💵 " + d.fee : ""),
-        );
+  const availableValues = useMemo(() => {
+    const used = new Set(selectedEvents.filter((val) => val !== null));
+    return new Set(allValues.filter((val) => !used.has(val)));
+  }, [allValues, selectedEvents]);
+
+  useEffect(() => {
+    if (!allValues.length) return;
+
+    setSelectedEvents((prev) => {
+      const next = [...prev];
+      const used = new Set<string>();
+
+      for (let i = 0; i < eventCount.length; i += 1) {
+        const current = next[i];
+        if (current && allValues.includes(current) && !used.has(current)) {
+          used.add(current);
+          continue;
+        }
+
+        const firstAvailable = allValues.find((val) => !used.has(val)) || null;
+        next[i] = firstAvailable;
+        if (firstAvailable) used.add(firstAvailable);
       }
-    }, [events]) || [];
+
+      return next;
+    });
+  }, [allValues, eventCount.length]);
   useEffect(() => {
     setEventCount([0]);
+    setSelectedEvents([null]);
   }, [forceRefresh]);
+
   return (
     <>
       {/* <Input name="CteamName" label={"Team Name"} required /> */}
@@ -95,13 +132,24 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
       {eventCount.length >= 1 ? (
         <div className="flex flex-col gap-4">
           {eventCount.map((t, i) => {
+            const currentValue = selectedEvents[i];
+            const optionsForSelector = allOptions.filter(
+              (opt) =>
+                availableValues.has(opt.value) || opt.value === currentValue,
+            );
+
+            const filteredValues = optionsForSelector.map((opt) => opt.value);
+            const filteredLabels = optionsForSelector.map((opt) => opt.label);
+
             return (
               <div key={t} className="relative">
                 <Select
                   label="Event"
-                  values={[...getEventValue]}
-                  labels={[...getEventNames]}
+                  values={filteredValues}
+                  labels={filteredLabels}
                   name={`events_${i}`}
+                  defaultValue={currentValue}
+                  onChange={(val) => handleEventChange(i, val)}
                 />
                 <button
                   onClick={() => removeEvent(i)}

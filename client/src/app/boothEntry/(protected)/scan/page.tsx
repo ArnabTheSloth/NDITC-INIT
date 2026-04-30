@@ -288,9 +288,7 @@ const ScanOrSearchPage = () => {
                 value={codeInput}
                 onChange={(e) => setCodeInput(e.target.value)}
                 className="w-full rounded-lg border border-primary-600 bg-dark-card-bg-dark px-4 py-2 text-white focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400"
-                placeholder={
-                  email ? "e.g. sahat8536@gmail.com" : "e.g. sahat8536"
-                }
+                placeholder={email ? "e.g. sahat8536@gmail.com" : "e.g. 1234"}
                 autoFocus
               />
             </div>

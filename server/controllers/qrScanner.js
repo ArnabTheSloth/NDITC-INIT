@@ -116,7 +116,7 @@ const scanQr = async (req, res) => {
   const eventName = req.qrAdmin.event;
 
   const [[targetClient]] = await sequelize.query(
-    `SELECT eventInfo,teamName,paidEvent,parId,CAId FROM parevents WHERE clientQR='${code}'`,
+    `SELECT eventInfo,teamName,paidEvent,parId,CAId FROM parevents WHERE parid='${code}'`,
   );
   if (!targetClient) throw new UnauthorizedError(`${code} is unauthorized`);
 

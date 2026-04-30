@@ -7,7 +7,7 @@ function App() {
     <main className="max-w-screen relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:-top-20 md:left-60"
-        fill={ExtendedColors.primary["200"]}
+        fill={ExtendedColors.primary["150"]}
       />
       <DevelopersGrid />
     </main>
