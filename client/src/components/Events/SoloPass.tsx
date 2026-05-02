@@ -78,11 +78,11 @@ const SoloPass = ({ events }: SegmentProps) => {
               <p className="text-2xl font-semibold text-white/75">Gifts</p>
             </div>
             <Separator className="my-6" />
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <IoFastFoodOutline className="text-8xl text-primary-350" />
               <p className="text-2xl font-semibold text-white/75">Snacks</p>
             </div>
-            <Separator className="my-6" />
+            <Separator className="my-6" /> */}
             <div className="flex items-center gap-4">
               <LuUtensils className="text-8xl text-primary-350" />
               <p className="text-2xl font-semibold text-white/75">Lunch</p>
