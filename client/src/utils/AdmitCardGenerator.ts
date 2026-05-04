@@ -673,12 +673,11 @@ export const AdmitHTMLGenerator = async (obj: any, qrSvg: string) => {
 
   const ret = `<div class="aspect-[1/1.414]  p-16 relative border">
     <div class="w-fit m-auto text-center mb-12">
-    <p class="text-xl font-semibold mb-4 font-audiowide">UNITED INTERNATIONAL UNIVERSITY PRESENTS</p>
-    <p class="text-3xl font-semibold mb-3 font-audiowide">INIT 5.0</p>
+    <p class="text-3xl font-semibold mb-3 font-audiowide">INIT 6.0</p>
     <div class="mb-4">
     <p>Hosted by: Notre Dame Information Technology Club</p>
     <p>Location: Notre Dame College, Dhaka</p>
-    <p>May 08-10, 2025</p>
+    <p>May 07-09, 2026</p>
     </div>
     <p class="font-bold text-xl">REGISTRATION CARD</p>
     </div>
@@ -692,9 +691,9 @@ export const AdmitHTMLGenerator = async (obj: any, qrSvg: string) => {
     <p class="font-bold">Class</p>
     <p>:</p>
     <p>${obj.className}</p>
-    <p class="font-bold">User Code</p>
+    <p class="font-bold">Exam Code</p>
     <p>:</p>
-    <p>${obj.userName}</p>
+    <p>60${obj.id}</p>
     </div>
     <h2 class="w-fit m-auto text-2xl font-bold mb-2">Event list</h2>
     ${soloPass}
@@ -711,7 +710,6 @@ export const AdmitHTMLGenerator = async (obj: any, qrSvg: string) => {
     </div>
     <div class="w-fit absolute top-[25%] right-4 text-center">
     ${qrSvg}
-    <div class="text-sm">Code: ${obj.qrCode}</div>
     </div>
     <div class="w-full h-full absolute top-0 left-0 flex justify-center items-center opacity-30 -z-10">
     <div class="w-3/4">

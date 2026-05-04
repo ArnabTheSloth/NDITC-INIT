@@ -32,6 +32,11 @@ const UserManagement = () => {
   const [r, sr] = useState(0);
   const [form, loading] = useForm({
     handler: async (data) => {
+      // Validate that at least one of email or phone is provided
+      if (!data?.email && !data?.phone) {
+        throw new Error("Either email or phone must be provided");
+      }
+
       const response = await fetchJSON(
         reqs.ADMIN_PAR_REG,
         {
@@ -105,7 +110,6 @@ const UserManagement = () => {
                 id="email"
                 type="email"
                 divClass="w-full flex-1"
-                required
               />
               <Input
                 label="Phone"
@@ -113,7 +117,6 @@ const UserManagement = () => {
                 id="phone"
                 type="text"
                 divClass="w-full flex-1"
-                required
               />
             </div>
             <div className="flex flex-col gap-4 md:flex-row">

@@ -21,15 +21,18 @@ const ParticipantInfoPage = ({
   params,
   searchParams,
 }: {
-  params: { code: string };
-  searchParams: { email: string };
+  params: React.Usable<{ code: string }>;
+  searchParams: React.Usable<{ email: string }>;
 }) => {
+  const p = React.use(params);
+  const sParams = React.use(searchParams);
+
   const [user, loading, error] = useFetch(
     {
       fn: getBoothPar,
-      params: [params.code, searchParams.email === "true"],
+      params: [p.code, sParams.email === "true"],
     },
-    [params.code],
+    [p.code],
   );
 
   if (loading) {

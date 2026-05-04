@@ -16,9 +16,9 @@ const Page = () => {
         const svgString = qrCodeRef?.current?.outerHTML;
         const generatedString = await AdmitHTMLGenerator(user, svgString || "");
         await downloadHTMLtoPDF(generatedString, "Admit_Card");
-        setTimeout(() => {
-          window.close();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.close();
+        // }, 2000);
       })();
     }
   }, [user]);

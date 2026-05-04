@@ -13,7 +13,7 @@ const DeveloperCard: React.FC<Developer> = ({
   return (
     <a
       href={facebook}
-      className="relative block h-[320px] w-full max-w-[250px] overflow-hidden rounded-2xl transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary-300"
+      className="group relative block h-auto w-full max-w-[260px] overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-transform hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-primary-300"
     >
       <div className="relative h-full w-full">
         <img
@@ -22,24 +22,22 @@ const DeveloperCard: React.FC<Developer> = ({
           className="h-full w-full object-cover"
           loading="lazy"
         />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-1/2"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(48, 24, 100, 0.9) 20%, rgba(48, 24, 100, 0.4) 70%, transparent 100%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute -bottom-10 -left-10 h-28 w-28 rounded-full bg-primary-300/20 blur-2xl" />
+        </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
-        <h2 className="mb-2 text-center text-2xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+      <div className="absolute bottom-0 left-0 right-0 z-10 py-4 text-center">
+        <div className="from-white/28 via-white/12 pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-t to-transparent backdrop-blur-[16px]" />
+        <h2 className="text-2xl font-medium tracking-wide text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
           {name}
         </h2>
-        <p className="text-center text-base font-medium text-secondary-200 opacity-95">
+        <p className="text-sm font-medium text-primary-200/90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
           {post}
         </p>
-
-        <p className="text-center text-base font-medium text-white/50 opacity-95">
+        <p className="text-sm text-white/70 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
           {role}
         </p>
       </div>

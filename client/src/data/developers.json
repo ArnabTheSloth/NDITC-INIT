@@ -46,7 +46,6 @@
       "name": "Tasnim Al Sahat",
       "post": "Organizer",
       "role": "Frontend Developer",
-
       "image": "https://res.cloudinary.com/dxvw2ccph/image/upload/v1744473440/INIT/developer/wcp9wfky3nnwwq6cfoew.png",
       "facebook": "https://www.facebook.com/profile.php?id=61553035394735#"
     },
@@ -54,7 +53,6 @@
       "name": "Mohammad Nafis Fuad",
       "post": "Organizer",
       "role": "Frontend Developer",
-
       "image": "https://res.cloudinary.com/dxvw2ccph/image/upload/v1744117810/init/uploads/gallery/gallery-1744117809139.jpg",
       "facebook": "www.facebook.com/mn.fuad26"
     },
@@ -69,7 +67,6 @@
       "name": "Fuad Hassan Rafi",
       "post": "Organizer",
       "role": "Frontend Developer",
-
       "image": "https://res.cloudinary.com/dxvw2ccph/image/upload/v1744473442/INIT/developer/nwxqrbgbcvfmamaotxjx.jpg",
       "facebook": "https://www.facebook.com/fuad.hassan.rafi.2024"
     },
@@ -77,7 +74,6 @@
       "name": "Arad Farzin",
       "post": "Organizer",
       "role": "Frontend Developer",
-
       "image": "https://res.cloudinary.com/dxvw2ccph/image/upload/v1744473444/INIT/developer/xvxuewmxkredog3enboh.jpg",
       "facebook": "https://www.facebook.com/arad.farzin.2024"
     },
@@ -85,7 +81,6 @@
       "name": "Faridin Islam",
       "post": "Organizer",
       "role": "Backend Developer",
-
       "image": "https://res.cloudinary.com/dxvw2ccph/image/upload/v1744473439/INIT/developer/fkdcdqtzy0zce2wn2whc.jpg",
       "facebook": "https://www.facebook.com/based.glasses"
     },
@@ -95,6 +90,13 @@
       "role": "Frontend Developer & Design",
       "image": "https://nditc.net/image/Developers/swapnil.jpg",
       "facebook": "https://www.facebook.com/profile.php?id=100083625623282"
+    },
+    {
+      "name": "Tridib Roy Arjo",
+      "post": "Member",
+      "role": "Fullstack Developer",
+      "image": "/Images/Developers/arjo.jpeg",
+      "facebook": "https://web.facebook.com/profile.php?id=61579575085887"
     }
   ],
   "PREVIOUS VERSIONS": [
@@ -104,20 +106,16 @@
       "role": "Full Stack build (1st version)",
       "clgRoll": "12207055",
       "post": "Ex-President, Department of Web and App development",
-
       "facebook": "https://www.facebook.com/khalid.ahammed.39"
     },
-
     {
       "name": "Ahammad Shawki",
       "image": "/Images/developers/shawki.jpg",
       "role": "Full Stack build (2nd version)",
       "clgRoll": "12305042",
       "post": "President, Department of Web and App development",
-
       "facebook": "https://www.facebook.com/ahammadshawki8"
     },
-
     {
       "name": "Muksifur Rahman",
       "image": "/Images/developers/muksif.jpg",
