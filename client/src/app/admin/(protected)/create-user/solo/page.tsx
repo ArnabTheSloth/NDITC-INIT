@@ -16,6 +16,7 @@ import Select from "@/components/ui/form/Select";
 import { CLASSES } from "@/data/classes";
 import { useRouter } from "next/navigation";
 import Checkbox from "@/components/ui/form/Checkbox";
+import { toast } from "react-toastify";
 
 interface User {
   id: string;
@@ -62,9 +63,14 @@ const UserManagement = () => {
     formData: true,
     populate: ["events"],
     successMsg: "Participant created successfully!",
-    onSuccess: () => {
+    onSuccess: (resp) => {
+      console.log(resp);
+      toast("Participant Id: " + resp?.metadata?.userId, {
+        autoClose: 10000,
+        type: "success",
+      });
       router.refresh();
-      sr((_) => _ + 1); // force refresh comp
+      sr((_) => _ + 1); // force refresh component
     },
   });
 
@@ -147,7 +153,7 @@ const UserManagement = () => {
                 label="Fee Paid"
                 name="boothFee"
                 placeholder="CA Reference"
-                type="number"
+                type="text"
                 divClass="w-full flex-1"
               />
               <Checkbox
