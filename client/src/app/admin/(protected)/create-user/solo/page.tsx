@@ -64,7 +64,6 @@ const UserManagement = () => {
     populate: ["events"],
     successMsg: "Participant created successfully!",
     onSuccess: (resp) => {
-      console.log(resp);
       toast("Participant Id: " + resp?.metadata?.userId, {
         autoClose: 10000,
         type: "success",
