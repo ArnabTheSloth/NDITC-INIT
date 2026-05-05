@@ -372,6 +372,17 @@ const parRegValidateAdmin = async (req, res, next) => {
       }
     }
 
+    let emailValue = email;
+
+    if ((email === "" || email === null) && (phone === "" || phone === null)) {
+      throw new BadRequestError("Please provide either email or phone");
+    }
+
+    if (phone && (email === "" || email === null)) {
+      const randomEmail = `${uniqid.time()}@booth-registration.nditc`;
+      emailValue = randomEmail;
+    }
+
     const hashedPass = hashSync(password, hashSalt);
     const image = "https://dummyimage.com/500x500/24124b/FFFFFF.jpg&text=B";
     const code = "NOT_SET";
@@ -389,7 +400,7 @@ const parRegValidateAdmin = async (req, res, next) => {
       className: className || "",
       address: address || "",
       image,
-      email,
+      email: emailValue,
       phone: phone.trim(),
       userName: req.userName || fullName + "@" + Math.floor(Math.random() * 10),
       password: hashedPass,
