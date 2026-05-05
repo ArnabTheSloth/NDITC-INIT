@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import PhotoUpload from "@/components/ui/PhotoUpload";
 import Loading from "@/components/ui/LoadingWhite";
 import ExtendedColors from "../../../../../../color.config";
-
+import { RegisterFormProvider } from "@/components/Events/Register/RegisterFormContext";
 import EventInput from "@/components/Admin/AddPar/EventInput";
 import RouteSwitch from "@/components/ui/RouteSwitch";
 import TeamInput from "@/components/Events/Register/TeamInput";
@@ -238,10 +238,9 @@ const UserManagement = () => {
             />
 
             {events ? (
-              <TeamInput
-                data={getEventFiltered[selectedEvent]}
-                forceRefresh={r}
-              />
+              <RegisterFormProvider eventData={getEventFiltered[selectedEvent]}>
+                <TeamInput data={getEventFiltered[selectedEvent]} />
+              </RegisterFormProvider>
             ) : null}
           </div>
           <div className="mt-4 flex justify-end">

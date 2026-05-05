@@ -4,6 +4,7 @@ import Input from "@/components/ui/form/Input";
 import Select from "@/components/ui/form/Select";
 import Separator from "@/components/ui/Separator";
 import useFetch from "@/hooks/useFetch";
+import { AnyAaaaRecord } from "dns";
 import React, { useEffect, useMemo, useState } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { FaUserSlash } from "react-icons/fa";
@@ -76,13 +77,13 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
     }, [events]) || [];
 
   const allValues = useMemo(
-    () => allOptions.map((opt) => opt.value),
+    () => allOptions.map((opt: any) => opt.value),
     [allOptions],
   );
 
   const availableValues = useMemo(() => {
     const used = new Set(selectedEvents.filter((val) => val !== null));
-    return new Set(allValues.filter((val) => !used.has(val)));
+    return new Set(allValues.filter((val: any) => !used.has(val)));
   }, [allValues, selectedEvents]);
 
   useEffect(() => {
@@ -99,7 +100,8 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
           continue;
         }
 
-        const firstAvailable = allValues.find((val) => !used.has(val)) || null;
+        const firstAvailable =
+          allValues.find((val: any) => !used.has(val)) || null;
         next[i] = firstAvailable;
         if (firstAvailable) used.add(firstAvailable);
       }
@@ -134,12 +136,16 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
           {eventCount.map((t, i) => {
             const currentValue = selectedEvents[i];
             const optionsForSelector = allOptions.filter(
-              (opt) =>
-                availableValues.has(opt.value) || opt.value === currentValue,
+              (opt: any) =>
+                availableValues.has(opt?.value) || opt?.value === currentValue,
             );
 
-            const filteredValues = optionsForSelector.map((opt) => opt.value);
-            const filteredLabels = optionsForSelector.map((opt) => opt.label);
+            const filteredValues = optionsForSelector.map(
+              (opt: any) => opt.value,
+            );
+            const filteredLabels = optionsForSelector.map(
+              (opt: any) => opt.label,
+            );
 
             return (
               <div key={t} className="relative">
