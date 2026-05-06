@@ -138,7 +138,7 @@ const registration = async (req, res) => {
 
   res.status(StatusCodes.CREATED).json({
     succeed: true,
-    metadata: { userId: userId },
+    metadata: { userId: userId, email: req.user.email },
     msg: "Finalize your registration by verifying your account. Please check your email or mobile for the verification link.",
   });
 };

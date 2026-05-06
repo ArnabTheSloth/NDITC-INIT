@@ -18,6 +18,8 @@ import reqs from "@/api/requests";
 import Select from "@/components/ui/form/Select";
 import { CLASSES } from "@/data/classes";
 import Checkbox from "@/components/ui/form/Checkbox";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface User {
   id: string;
@@ -30,6 +32,7 @@ interface User {
 }
 
 const UserManagement = () => {
+  const router = useRouter();
   const [selectedEvent, setSelectedEvent] = useState<number>(0);
   const [r, sr] = useState(0);
 
@@ -100,6 +103,10 @@ const UserManagement = () => {
   const [form, loading] = useForm(
     {
       handler: async (data) => {
+        if (!data?.email && !data?.phone) {
+          throw new Error("Either email or phone must be provided");
+        }
+
         const response = await fetchJSON(
           reqs.ADMIN_PAR_REG,
           {
@@ -108,21 +115,29 @@ const UserManagement = () => {
           },
           data,
         );
+
+        const resolvedEmail = response?.metadata?.email;
+
         await fetchJSON(
           reqs.ADMIN_TEAM_EVENT,
           {
             credentials: "include",
             method: "POST",
           },
-          { ...data, eventName: data.eventName },
+          { ...data, email: resolvedEmail, eventName: data.eventName },
         );
 
-        return { success: true };
+        return response;
       },
       formData: true,
       populate: ["members"],
       successMsg: "Team created successfully!",
-      onSuccess: () => {
+      onSuccess: (resp) => {
+        toast("Participant Id: " + resp?.metadata?.userId, {
+          autoClose: 10000,
+          type: "success",
+        });
+        router.refresh();
         sr((_) => _ + 1); // force refresh comp
       },
     },
@@ -176,7 +191,6 @@ const UserManagement = () => {
                 id="email"
                 type="email"
                 divClass="w-full flex-1"
-                required
               />
               <Input
                 label="Phone"
@@ -184,7 +198,6 @@ const UserManagement = () => {
                 id="phone"
                 type="text"
                 divClass="w-full flex-1"
-                required
               />
             </div>
             <div className="flex flex-col gap-4 md:flex-row">
@@ -215,7 +228,7 @@ const UserManagement = () => {
                 label="Fee Paid"
                 name="boothFee"
                 placeholder="fee"
-                type="number"
+                type="text"
                 divClass="w-full flex-1"
               />
               <Checkbox

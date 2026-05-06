@@ -34,6 +34,7 @@ const UserManagement = () => {
   const [form, loading] = useForm({
     handler: async (data) => {
       // Validate that at least one of email or phone is provided
+      console.log(data);
       if (!data?.email && !data?.phone) {
         throw new Error("Either email or phone must be provided");
       }
@@ -46,17 +47,22 @@ const UserManagement = () => {
         },
         data,
       );
+
+      const resolvedEmail = response?.metadata?.email;
+
       if (data?.events) {
-        (data?.events as string[]).forEach(async (ev) => {
-          await fetchJSON(
-            reqs.ADMIN_SINGLE_EVENT,
-            {
-              credentials: "include",
-              method: "POST",
-            },
-            { ...data, eventName: ev },
-          );
-        });
+        await Promise.all(
+          (data?.events as string[]).map(async (ev) => {
+            await fetchJSON(
+              reqs.ADMIN_SINGLE_EVENT,
+              {
+                credentials: "include",
+                method: "POST",
+              },
+              { ...data, email: resolvedEmail, eventName: ev },
+            );
+          }),
+        );
       }
       return response;
     },

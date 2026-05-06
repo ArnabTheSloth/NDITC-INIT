@@ -330,8 +330,12 @@ const parRegValidateAdmin = async (req, res, next) => {
         where: { email: email, phone: phone },
       });
 
-      res.json({
+      return res.json({
         succeed: true,
+        metadata: {
+          userId: isEmailOrPhoneThere.id,
+          email: isEmailOrPhoneThere.email,
+        },
         msg: `Already registered with email:${email} and phone:${phone}`,
       });
     }
