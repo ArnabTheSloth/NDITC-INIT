@@ -108,13 +108,16 @@ const UserManagement = () => {
           },
           data,
         );
+
+        const resolvedEmail = response?.metadata?.email;
+
         await fetchJSON(
           reqs.ADMIN_TEAM_EVENT,
           {
             credentials: "include",
             method: "POST",
           },
-          { ...data, eventName: data.eventName },
+          { ...data, email: resolvedEmail, eventName: data.eventName },
         );
 
         return { success: true };
