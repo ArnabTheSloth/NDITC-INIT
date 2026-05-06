@@ -712,9 +712,6 @@ export const AdmitHTMLGenerator = async (obj: any, qrSvg: string) => {
     ${qrSvg}
     </div>
     <div class="w-full h-full absolute top-0 left-0 flex justify-center items-center opacity-30 -z-10">
-    <div class="w-3/4">
-    <img src="/INIT_Icon.svg" width="500" alt="">
-            </div>
         </div>
         <div class="w-[120px] absolute top-[12%] right-[5%]">
         <img src="/Logo.png" alt="NDITC logo">
