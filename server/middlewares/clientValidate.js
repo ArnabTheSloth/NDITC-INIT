@@ -321,22 +321,22 @@ const parRegValidateAdmin = async (req, res, next) => {
   const password = process.env.D_PASS || "default";
 
   if (fullName && (email || phone)) {
-    const isEmailOrPhoneThere = await Participants.findOne({
-      where: { email: email, phone: phone },
+    const isEmailThere = await Participants.findOne({
+      where: { email: email },
     });
-    if (isEmailOrPhoneThere) {
+    if (isEmailThere) {
       await Participants.increment("boothFee", {
         by: boothFee,
-        where: { email: email, phone: phone },
+        where: { email: email },
       });
 
       return res.json({
         succeed: true,
         metadata: {
-          userId: isEmailOrPhoneThere.id,
-          email: isEmailOrPhoneThere.email,
+          userId: isEmailThere.id,
+          email: isEmailThere.email,
         },
-        msg: `Already registered with email:${email} and phone:${phone}`,
+        msg: `Already registered with email:${email}`,
       });
     }
 
