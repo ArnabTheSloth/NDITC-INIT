@@ -11,14 +11,12 @@ import { FaUserSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
-  const [eventCount, setEventCount] = useState([0]);
-  const [selectedEvents, setSelectedEvents] = useState<(string | null)[]>([
-    null,
-  ]);
+  const [eventCount, setEventCount] = useState<number[]>([]);
+  const [selectedEvents, setSelectedEvents] = useState<(string | null)[]>([]);
 
   const addEvent = () => {
     setEventCount((s) => {
-      setSelectedEvents((prev) => [...prev, null]);
+      setSelectedEvents((prev) => [...prev]);
       return [...s, Math.random()];
     });
   };
@@ -110,8 +108,8 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
     });
   }, [allValues, eventCount.length]);
   useEffect(() => {
-    setEventCount([0]);
-    setSelectedEvents([null]);
+    setEventCount([]);
+    setSelectedEvents([]);
   }, [forceRefresh]);
 
   return (
@@ -154,7 +152,7 @@ const EventInput = ({ forceRefresh }: { forceRefresh?: any }) => {
                   values={filteredValues}
                   labels={filteredLabels}
                   name={`events_${i}`}
-                  defaultValue={currentValue}
+                  defaultValue={currentValue || undefined}
                   onChange={(val) => handleEventChange(i, val)}
                 />
                 <button
